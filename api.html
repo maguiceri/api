@@ -4,9 +4,35 @@
     </head>
 
     <body>
+        <h1>listado de pokemones</h1>
+        <ul id="lista">
+    
+        </ul>
 
 
         <script>
+
+            const list = document.getElementById("lista");
+            fetch('https://pokeapi.co/api/v2/pokemon?limit=40')
+            .then( function (response) { 
+                return response.json();
+                })
+            .then( function (data) { 
+                console.log(data.results);
+                let pokemonNames=[];
+                data.results.forEach(function (pokemon) {
+                    pokemonNames.push(pokemon.name)
+                })
+                mostrarPokemones (pokemonNames)
+            });
+
+            function mostrarPokemones (pokemones) {
+                pokemones.forEach (function (poke) {
+                    const listItem=document.createElement("li");
+                    listItem.innerHTML=poke;
+                    list.appendChild(listItem);
+                })
+            }
         </script>
     </body>
 
